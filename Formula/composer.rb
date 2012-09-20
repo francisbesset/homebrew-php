@@ -20,14 +20,14 @@ class Composer < Formula
     unless composer_reqs?
       raise <<-EOS.undent
         Composer PHP requirements check has failed. Please run
-        `curl -s http://getcomposer.org/installer | /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off -- --check`
+        `curl -s http://getcomposer.org/installer | /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off -d date.timezone=Europe/Paris -- --check`
         to identify and fix any issues
       EOS
     end
 
     libexec.install "composer.phar"
     sh = libexec + "composer"
-    sh.write("/usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off #{libexec}/composer.phar $*")
+    sh.write("/usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off -d date.timezone=Europe/Paris #{libexec}/composer.phar $*")
     chmod 0755, sh
     bin.install_symlink sh
 
